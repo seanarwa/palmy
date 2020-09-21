@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:palmy/auth.dart';
+import 'package:palmy/pages/index.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     Auth.authState().listen((user) {
       if(user == null) {
         print("User is not signed in, redirecting to LoginPage ...");
-        Navigator.of(context).pushReplacementNamed("/login");
+        Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
         return;
       }
     });
@@ -28,11 +29,22 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: RaisedButton(
-          child: Text("Logout"),
-          onPressed: () {
-            Auth.signOut();
-          },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            RaisedButton(
+              child: Text("Capture"),
+              onPressed: () {
+                Navigator.of(context).pushNamed(CapturePage.routeName);
+              },
+            ),
+            RaisedButton(
+              child: Text("Logout"),
+              onPressed: () {
+                Auth.signOut();
+              },
+            )
+          ],
         ),
       ),
     );
